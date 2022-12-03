@@ -1,27 +1,29 @@
 # Import the required module for text 
 # to speech conversion
 from gtts import gTTS
-  
+from googletrans import Translator, constants
+from pprint import pprint
 # This module is imported so that we can 
 # play the converted audio
 import os
   
-# The text that you want to convert to audio
-mytext = input("Please enter the desired text to be translated: ")
-fileName = input("Please enter the file name: ")
-# Language in which you want to convert
 language = 'en'
-  
-# Passing the text and language to the engine, 
-# here we have marked slow=False. Which tells 
-# the module that the converted audio should 
-# have a high speed
-myobj = gTTS(text=mytext, lang=language, slow=False)
-  
-# Saving the converted audio in a mp3 file named
-# welcome 
 
-myobj.save("{fileName}.mp3")
+#translator
+dest = input("Please enter the desired destination language in 2 character format (like 'en' for english or 'fr' for french): ")
+original = input("Please enter the text to be translated: ")
+translator = Translator()
+translation = translator.translate(original, dest)
+mytext = translation.text
+#print(f"{translation.origin} ({translation.src}) --> {translation.text} ({translation.dest})")
+print(translation.text)
+
+ #Text to speech 
+myobj = gTTS(text=mytext, lang=language, slow=False)
+
+
+myobj.save("Translation.mp3")
   
-# Playing the converted file
-os.system("start {fileName}.mp3")
+os.system("start Translation.mp3")
+
+
